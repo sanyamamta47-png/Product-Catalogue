@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,18 +9,19 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
         .product-card {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-        padding: 5%;
+            padding: 5%;
         }
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
-        #logo{height: 20%;width: 16%;}
-   a{display: inline}
+        #logo { height: 20%; width: 16%; min-width: 100px; }
+        a { display: inline }
     </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -29,7 +29,7 @@
     <!-- Header -->
     <header class="bg-white sticky top-0 z-50 shadow-md">
         <div class="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between">
-            <h1><img id="logo" src="https://ik.imagekit.io/alj2mkmic/Screenshot%202025-09-16%20234558.png?updatedAt=1758046745606" alt=""></h1>
+            <h1><img id="logo" src="https://ik.imagekit.io/alj2mkmic/Screenshot%202025-09-16%20234558.png?updatedAt=1758046745606" alt="Logo"></h1>
             <nav class="mt-4 sm:mt-0">
                 <a href="#" class="text-lg font-medium text-gray-700 hover:text-purple-600 px-3 py-2 rounded-lg transition-colors duration-300">Home</a>
                 <a href="#products" class="text-lg font-medium text-gray-700 hover:text-purple-600 px-3 py-2 rounded-lg transition-colors duration-300">Catalog</a>
@@ -40,14 +40,34 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-12">
-        <section id="hero" class="text-center mb-16">
+        <section id="hero" class="text-center mb-10">
             <h2 class="text-4xl md:text-5xl font-extrabold text-[#EA7EA9] mb-4">Discover Your Inner Peace</h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">Handcrafted spiritual items designed to bring positive energy, balance, and harmony into your life. Explore our collection and find your perfect piece.</p>
         </section>
 
-        <section id="products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Search Bar Section -->
+        <section class="mb-12 flex justify-center">
+            <div class="relative w-full max-w-md">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <input type="text" id="searchInput" 
+                    class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-full leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 sm:text-lg shadow-sm transition duration-150 ease-in-out" 
+                    placeholder="Search for bracelets, charms, crystals..."
+                >
+            </div>
+        </section>
+
+        <section id="products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 min-h-[300px]">
             <!-- Product cards will be dynamically inserted here by JavaScript -->
         </section>
+        
+        <!-- No Results Message (Hidden by default) -->
+        <div id="noResults" class="hidden text-center py-12">
+            <p class="text-gray-500 text-xl">No products found matching your search.</p>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -67,6 +87,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const productsContainer = document.getElementById('products');
+            const searchInput = document.getElementById('searchInput');
+            const noResultsMsg = document.getElementById('noResults');
             
             // Define an array of light pastel colors
             const pastelColors = [
@@ -75,37 +97,29 @@
                 '#FFF9C4', // Light Yellow
                 '#E3F2FD', // Light Blue
                 '#E8F5E9',  // Light Green
-                    
             ];
             
-            // This is the core data array. You can add, edit, or remove products here.
+            // This is the core data array.
             const products = [
-
-               {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_4afhbr4afhbr4afh.png',
                     title:'Weight Loss Bracelet',
                     description: 'Naturally boosts metabolism, enhances willpower, and controls appetite.',
                     price: '₹900'
                 },
-
-                
-                   {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_gf8wrigf8wrigf8w.png',
                     title:'Soulmate Energized Bracelet',
                     description: 'Magnetize your aura to attract true, unconditional love.',
                     price: '₹900'
                 },
-
-                
-                
-                   {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_4xtlpg4xtlpg4xtl.png',
                     title:'Dhanyog Bracelet',
                     description: 'Magnetizes abundant wealth, prosperity, and financial success.',
                     price: '₹699'
                 },
-
-                   {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_lv301vlv301vlv30.png',
                     title:'The Grounded Spirit Bracelet',
                     description: 'The ultimate balance of calm, focus, and grounding.',
@@ -117,16 +131,13 @@
                     description: 'Wear wealth and good fortune on your wrist.',
                     price: '₹899'
                 },
-
-            {
+                {
                     image: 'https://ik.imagekit.io/p6khbjdh9/6.png?updatedAt=1758111936673',
                     title:'Pyrite Vajra Bracelet',
                     description: 'Powerful Pyrite Vajra Bracelet for wealth, luck, and spiritual protection.',
                     price: '₹899'
                 }, 
-            
-            
-            {
+                {
                     image: 'https://ik.imagekit.io/alj2mkmic/1.png?updatedAt=1758042863499',
                     title:'Rose Quartz Bracelet',
                     description:'Feel the love with our Rose Quartz Bracelet.' ,
@@ -138,71 +149,61 @@
                     description:'Stay Protected from Evil Eye with our Triple Protection Bracelet',
                     price: '₹699'
                 },
-              
-                 {
+                {
                     image: 'https://ik.imagekit.io/p6khbjdh9/8.png?updatedAt=1758111936573',
                     title:'Clear Quartz Bracelet',
                     description: 'Elevate your energy and clarity with this Clear Quartz Bracelet.',
                     price: '₹799'
                 },
-             
-                   {
+                {
                     image: 'https://ik.imagekit.io/p6khbjdh9/11.png?updatedAt=1758111943066',
                     title:'Green Jade Bracelet',
                     description: 'Embrace luck and harmony with this green jade bracelet.',
                     price: '₹699'
                 },
-
-            {
+                {
                     image: 'https://ik.imagekit.io/p6khbjdh9/2.png?updatedAt=1758111937161',
                     title:'Black Obsidian Bracelet ',
                     description: 'Powerful and protective, this black obsidian bracelet shields you from negativity.',
                     price: '₹699'
                 },
-                
                 {
                     image: 'https://ik.imagekit.io/p6khbjdh9/7.png?updatedAt=1758111937192',
                     title:'Amethyst Bracelet',
                     description: 'Enhance your calm with this stunning Amethyst Bracelet.',
                     price: '₹699'
                 },
-                 {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_hiyq42hiyq42hiyq.png',
                     title:'Aura Quartz Bracelet',
                     description: 'Elevates mood, cleanses energy, and radiates positivity.',
                     price: '₹600'
                 },
-                
-                  
-                 {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_t9rbflt9rbflt9rb.png',
                     title:'Navgrah Lava Rock Bracelet',
                     description: 'Balance planetary influences with grounding earth energy.',
                     price: '₹600'
                 },
-
-                      {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_t9rbflt9rbflt9rb.png',
                     title:'Navgrah Lava Rock Bracelet',
                     description: 'Balance planetary influences with grounding earth energy.',
                     price: '₹600'
                 },
-                
-                
-                                
-                   {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_1oikma1oikma1oik.png',
                     title:'Tiger Eye and Evil Eye Phone Charm',
                     description: 'Deflects negativity and amplifies your personal power.',
                     price: '₹599'
                 },
-                   {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_295vww295vww295v.png',
                     title:'Amethyst Rose Quartz Clear Quartz and Green Jade phone charm',
                     description: 'Attracts love, luck, and serenity in perfect harmony.',
                     price: '₹599'
                 },
-       {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_t77j1mt77j1mt77j.png',
                     title:'Rose Quartz Butterfly',
                     description: 'Let your heart take flight on wings of healing, grace, and pure unconditional love.',
@@ -212,11 +213,9 @@
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_hkdsx4hkdsx4hkds.png',
                     title: 'Pyrite Plate',
                     description:'Unlock wealth and success with this powerful money magnet.',
-                    
                     price: '₹450'
                 },
-                      
-  {
+                {
                     image: 'https://ik.imagekit.io/alj2mkmic/WhatsApp%20Image%202025-09-15%20at%2011.40.58%20AM.jpeg',
                     title:'Pyrite Anklet',
                     description: 'Walk into wealth with this stylish Pyrite Anklet.',
@@ -232,13 +231,9 @@
                     image: 'https://ik.imagekit.io/alj2mkmic/WhatsApp%20Image%202025-09-09%20at%201.01.44%20PM.jpeg?updatedAt=1758038981703',
                     title: 'Money Magnet Tree',
                     description:'Bring home luck and prosperity with this beautiful crystal money tree.',
-                    
                     price: '₹808'
                 },
-                        
-
-                
-                {     
+                {    
                     image: 'https://ik.imagekit.io/p6khbjdh9/5.png?updatedAt=1758111937831',
                     title:'300 Beads Crystal Tree',
                     description: 'Bloom with positive energy and healing with this crystal tree.',
@@ -251,9 +246,8 @@
                     price: '₹599'
                 },
                 {    
-                    
                     image: 'https://ik.imagekit.io/p6khbjdh9/WhatsApp%20Image%202025-08-26%20at%2011.jpg?updatedAt=1758210518263',
-            title:'Laxmi Yantra Plate',
+                    title:'Laxmi Yantra Plate',
                     description: "Invites Goddess Laxmi's blessings and abundance.",
                     price: '₹498'
                 },
@@ -263,20 +257,18 @@
                     description: 'Powerful protection charm: block negativity right at your door.',
                     price: '₹401'
                 },
-                 {
+                {
                     image: 'https://ik.imagekit.io/p6khbjdh9/9.png?updatedAt=1758111936798',
                     title:'Selenite 7 Chakra Lamp',
                     description: 'Align your energy with this beautiful 7 chakra selenite lamp.',
                     price: '₹699'
                 }, 
-            
                 {
                     image: 'https://ik.imagekit.io/p6khbjdh9/10.png?updatedAt=1758111938167',
                     title:'Pyrite Ring',
                     description: 'Attract abundance and confidence with this pyrite ring.',
                     price: '₹555'
                 }, 
-              
                 {
                     image: 'https://ik.imagekit.io/alj2mkmic/5.png?updatedAt=1758042865565',
                     title: 'Money Frog with Coin',
@@ -289,31 +281,24 @@
                     description:'Golden wisdom to ground success and shield your spirit.',
                     price: '₹201'
                 },
-
                 {
                     image: 'https://ik.imagekit.io/alj2mkmic/Gemini_Generated_Image_26aahb26aahb26aa.png',
                     title: 'Blue Owl Wall Hanging',
                     description:'This elegant Owl Hanging wards off negative energy and brings wisdom.',
                     price: '₹300'
                 },
-
                 {
                     image: 'https://ik.imagekit.io/p6khbjdh9/3.png?updatedAt=1758111937034',
                     title:'Study Tower',
                     description: 'Elevate your focus and academic success with this study tower.',
                     price: '₹299'
                 },
-              
                 {    
-                    
                     image: 'https://ik.imagekit.io/p6khbjdh9/WhatsApp%20Image%202025-09-18%20at%206.jpg?updatedAt=1758209870691',
                     title:' Brass Tortoise',
                     description: 'Brass Tortoise auspicious in Vastu and Feng Shui.',
                     price: '₹351'
-
-                     
                 },
-              
                 {    
                     image: 'https://ik.imagekit.io/p6khbjdh9/WhatsApp%20Image%202025-08-18%20at%2011.22.38%20AM.jpeg?updatedAt=1758210780783',
                     title:'Money Attraction Healing Oil 10ml',
@@ -344,74 +329,82 @@
                     description: 'Recovers lost income, attracts delayed payments, unblocks flow, restores wealth.',
                     price: '₹399'
                 },
-            
-
-                 {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/WhatsApp%20Image%202025-10-22%20at%204.35.27%20PM.jpeg',
                     title:'Wealth & Abundance Salt',
                     description: 'Enhances manifestation, balances energy, promotes confidence and abundant prosperity.',
                     price: '₹333'
                 },
-            
-            
-                 
-
-                 {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/WhatsApp%20Image%202025-11-15%20at%2010.28.29%20PM.jpeg',
                     title:'Negative Energy Removal Salt',
                     description: 'Cleanses negativity, promotes peace, balances emotions, enhances spiritual focus, purity.',
                     price: '₹333'
                 },
-            
-            
-                  {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/WhatsApp%20Image%202025-11-15%20at%2010.29.47%20PM.jpeg',
                     title:'Money Magnet Powder',
                     description: 'Attracts income, clears obstacles, amplifies intentions, and manifests abundant prosperity.',
                     price: '₹252'
                 },
-            
-            
-                  {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/WhatsApp%20Image%202025-11-15%20at%2010.36.18%20PM.jpeg',
                     title:'Amethyst Keychain',
                     description: 'Provides protection, inner peace, stress relief, clarity, and intuitive balance.',
                     price: '₹251'
                 },
-            
-                               {    
+                {    
                     image: 'https://ik.imagekit.io/alj2mkmic/WhatsApp%20Image%202025-11-15%20at%2010.37.51%20PM.jpeg',
                     title:'Money Coin ',
                     description: 'Welcome prosperity and abundance with a Zibu-engraved money coin.',
                     price: '₹220'
-                },
-            
-                             
-                  
-            
-            
+                }
             ];
 
-            products.forEach((product, index) => {
-                const card = document.createElement('div');
-                const cardColor = pastelColors[index % pastelColors.length]; // Cycle through colors
-                card.classList.add('product-card', 'rounded-xl', 'overflow-hidden', 'shadow-lg');
-                card.style.backgroundColor = cardColor;
-                card.innerHTML = `
-                    <img src="${product.image}" alt="${product.description}" class="w-full h-auto object-cover">
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold mb-2">${product.title}</h3>
-                        
-                        <h3 class="text-xl font mb-2">${product.description}</h3>
-                        <p class="text-2xl font-bold text-purple-600">${product.price}</p>
-                    </div>
-                `;
-                productsContainer.appendChild(card);
+            // Function to display products
+            function displayProducts(productsToDisplay) {
+                productsContainer.innerHTML = ''; // Clear existing products
+                
+                if (productsToDisplay.length === 0) {
+                    noResultsMsg.classList.remove('hidden');
+                    return;
+                } else {
+                    noResultsMsg.classList.add('hidden');
+                }
+
+                productsToDisplay.forEach((product, index) => {
+                    const card = document.createElement('div');
+                    // Use modulo to cycle through colors based on the index in the filtered array
+                    const cardColor = pastelColors[index % pastelColors.length]; 
+                    card.classList.add('product-card', 'rounded-xl', 'overflow-hidden', 'shadow-lg');
+                    card.style.backgroundColor = cardColor;
+                    card.innerHTML = `
+                        <img src="${product.image}" alt="${product.description}" class="w-full h-auto object-cover">
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-semibold mb-2">${product.title}</h3>
+                            <h3 class="text-xl font mb-2">${product.description}</h3>
+                            <p class="text-2xl font-bold text-purple-600">${product.price}</p>
+                        </div>
+                    `;
+                    productsContainer.appendChild(card);
+                });
+            }
+
+            // Initial display of all products
+            displayProducts(products);
+
+            // Search event listener
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                
+                const filteredProducts = products.filter(product => 
+                    product.title.toLowerCase().includes(searchTerm) || 
+                    product.description.toLowerCase().includes(searchTerm)
+                );
+
+                displayProducts(filteredProducts);
             });
         });
     </script>
 </body>
 </html>
-
-
-
